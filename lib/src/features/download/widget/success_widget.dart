@@ -4,9 +4,10 @@ import 'package:lottie/lottie.dart';
 
 import '../../../../routes/routes.dart';
 import '../../../core/util/constants.dart';
+import '../../../core/util/widgets/elevated_button.dart';
 
 class SuccessWidget extends StatelessWidget {
-  const SuccessWidget();
+  const SuccessWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -43,14 +44,12 @@ class SuccessWidget extends StatelessWidget {
             SizedBox(
               height: 16.h,
             ),
-            ElevatedButton(
+            CustomElevatedButton(
               onPressed: () {
                 Navigator.of(context)
                     .pushReplacementNamed(RouteGenerator.locationPermission);
               },
-              child: Text(
-                'Next',
-              ),
+              text: 'Next',
             ),
           ],
         ),

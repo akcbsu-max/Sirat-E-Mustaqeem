@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../core/util/constants.dart';
 
@@ -14,8 +15,10 @@ class SiratCard extends StatelessWidget {
       margin: kPagePadding,
       padding: kCardPadding,
       decoration: BoxDecoration(
-        borderRadius: kCardBorderRadius,
-        color: Theme.of(context).colorScheme.background,
+        // color: Theme.of(context).brightness == Brightness.dark
+        //     ? Theme.of(context).cardColor
+        //     : Theme.of(context).scaffoldBackgroundColor,
+        borderRadius: BorderRadius.circular(10.r),
       ),
       child: child,
     );

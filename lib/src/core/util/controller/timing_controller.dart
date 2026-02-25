@@ -119,13 +119,13 @@ getPrayerTiming(double latitude, double longitude,
     else {
       return RemoteFailure(
           message: timingResponse.statusCode,
-          errorType: DioErrorType.badResponse);
+          errorType: DioExceptionType.badResponse);
     }
   } on RemoteException catch (e) {
-    String? errorMessage = e.dioError.message;
+    String? errorMessage = e.dioError.name;
     int? errorCode;
     for (final error in RemoteErrorCode.remoteErrors) {
-      if (e.dioError.message!.contains(error['rawMessage'].toString())) {
+      if (e.dioError.name.contains(error['rawMessage'].toString())) {
         errorMessage = error['message'].toString();
         errorCode = error['errorCode'] as int;
       }
@@ -133,7 +133,7 @@ getPrayerTiming(double latitude, double longitude,
     return Left(
       RemoteFailure(
         message: errorMessage,
-        errorType: DioErrorType.badResponse,
+        errorType: DioExceptionType.badResponse,
         errorCode: errorCode,
       ),
     );

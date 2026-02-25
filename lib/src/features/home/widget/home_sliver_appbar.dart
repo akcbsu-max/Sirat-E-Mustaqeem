@@ -8,7 +8,7 @@ import '../bloc/appbar_bloc/appbar_bloc.dart';
 import 'appbar_expanded.dart';
 
 class HomeSliverAppbar extends StatelessWidget {
-  const HomeSliverAppbar();
+  const HomeSliverAppbar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,14 +39,17 @@ class HomeSliverAppbar extends StatelessWidget {
                   child: SvgPicture.asset(
                     'assets/images/home_icon/svg/noti.svg',
                     width: 24.w,
-                    color: Theme.of(context).textTheme.bodyMedium!.color,
+                    colorFilter: ColorFilter.mode(
+                      Theme.of(context).textTheme.bodyMedium!.color!,
+                      BlendMode.srcIn,
+                    ),
                   ),
                 ),
               ),
           ],
           toolbarHeight: 50,
           collapsedHeight: 50,
-          expandedHeight: 0.35.sh,
+          expandedHeight: 0.30.sh,
           elevation: 0,
           pinned: true,
           floating: false,

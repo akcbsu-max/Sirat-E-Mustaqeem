@@ -1,57 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 
-import '../../../../routes/routes.dart';
-import '../../../core/util/bloc/prayer_timing_bloc/timing_bloc.dart';
-import '../../../core/util/constants.dart';
-import '../../../core/util/controller/date_controller.dart';
+import '../../../core/util/bloc/time_format/time_format_bloc.dart';
 import '../../../core/util/controller/timing_controller.dart';
-import '../bloc/timer_bloc/timer_bloc.dart';
-import 'countdown_timer.dart';
-import 'prayers.dart';
 
 class PrayerTimingWidget extends StatelessWidget {
-  const PrayerTimingWidget();
-
+  const PrayerTimingWidget(
+      {super.key, required this.title, required this.time});
+  final String title;
+  final String time;
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.of(context).pushNamed(RouteGenerator.prayerTimingPage);
-      },
+    return Container(
+      // margin: kCardPadding,
+      // color: Colors.amber,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            getTodayDate(),
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Text(
-            'Next Prayer Timing:',
+            title,
             style: Theme.of(context).textTheme.bodyLarge,
           ),
-          Prayers(),
-          BlocBuilder<TimingBloc, TimingState>(
-            builder: (context, state) {
-              TimingController? controller;
-              if (state is TimingLoaded) {
-                controller = TimingController(state.timing.data.timings);
-              }
-              return AnimatedSwitcher(
-                duration: kAnimationDuration,
-                reverseDuration: Duration.zero,
-                switchInCurve: kAnimationCurve,
-                child: !(state is TimingLoaded)
-                    ? Container()
-                    : BlocProvider.value(
-                        value: TimerBloc(controller!.time),
-                        child: CountDownTimer(controller),
-                      ),
-              );
-            },
-          )
+          SizedBox(
+            height: 4.h,
+          ),
+          SvgPicture.asset(
+            'assets/images/home_icon/svg/fajr.svg',
+            width: 24.w,
+            colorFilter: ColorFilter.mode(
+              Theme.of(context).textTheme.bodyMedium!.color!,
+              BlendMode.srcIn,
+            ),
+          ),
+          SizedBox(
+            height: 4.h,
+          ),
+          BlocBuilder<TimeFormatBloc, TimeFormatState>(
+              builder: (context, timeFormatState) {
+            return Text(
+              timeFormatState.is24 ? time : convertTimeTo12HourFormat(time),
+              style: Theme.of(context).textTheme.bodyLarge,
+            );
+          }),
         ],
       ),
     );

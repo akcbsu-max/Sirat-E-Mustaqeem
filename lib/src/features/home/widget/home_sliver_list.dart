@@ -4,10 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'ayat_card.dart';
 import 'collection_card.dart';
 import 'hadees_card.dart';
-import 'random_image_card.dart';
 
 class HomeSliverList extends StatelessWidget {
-  const HomeSliverList();
+  const HomeSliverList({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,21 +14,11 @@ class HomeSliverList extends StatelessWidget {
       delegate: SliverChildListDelegate(
         [
           CollectionCard(),
-          SizedBox(
-            height: 16.h,
-          ),
+          SizedBox(height: 16.h),
           AyatCard(),
-          SizedBox(
-            height: 16.h,
-          ),
+          SizedBox(height: 16.h),
           HadessCard(),
-          SizedBox(
-            height: 16.h,
-          ),
-          RandomImageCard(),
-          SizedBox(
-            height: 112.h,
-          ),
+          SizedBox(height: 112.h),
         ],
       ),
     );

@@ -33,7 +33,7 @@ class NetworkClient {
           options: Options(
             responseType: ResponseType.json,
           ));
-    } on DioError catch (exception) {
+    } on DioExceptionType catch (exception) {
       throw RemoteException(dioError: exception);
     }
     return response;
@@ -48,7 +48,7 @@ class NetworkClient {
           options: Options(
             responseType: ResponseType.json,
           ));
-    } on DioError catch (exception) {
+    } on DioExceptionType catch (exception) {
       throw RemoteException(dioError: exception);
     }
     return response;
@@ -63,7 +63,7 @@ class NetworkClient {
           options: Options(
             responseType: ResponseType.json,
           ));
-    } on DioError catch (exception) {
+    } on DioExceptionType catch (exception) {
       throw RemoteException(dioError: exception);
     }
     return response;
@@ -79,7 +79,7 @@ class NetworkClient {
         pathName,
         onReceiveProgress: onReceiveProgress,
       );
-    } on DioError catch (exception) {
+    } on DioExceptionType catch (exception) {
       throw RemoteException(dioError: exception);
     }
     return response;
