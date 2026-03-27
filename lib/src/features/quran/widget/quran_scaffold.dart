@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter/services.dart';
 import 'package:sirat_e_mustaqeem/src/core/util/constants.dart';
 
 import '../../../core/util/bloc/juz/juz_bloc.dart';
@@ -22,10 +23,23 @@ class QuranScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+    final overlay = (brightness == Brightness.dark
+            ? SystemUiOverlayStyle.light
+            : SystemUiOverlayStyle.dark)
+        .copyWith(
+      statusBarColor: Theme.of(context).scaffoldBackgroundColor,
+      statusBarIconBrightness:
+          brightness == Brightness.dark ? Brightness.light : Brightness.dark,
+      statusBarBrightness:
+          brightness == Brightness.dark ? Brightness.dark : Brightness.light,
+    );
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
+        systemOverlayStyle: overlay,
         iconTheme: IconThemeData(
           color: Theme.of(context).textTheme.bodyMedium!.color,
         ),
