@@ -2,13 +2,17 @@ name: build
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+      - master
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Setup Java
@@ -21,12 +25,22 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: stable
+          cache: false
 
       - name: Flutter Version
         run: flutter --version
 
+      - name: Clean Project
+        run: flutter clean
+
       - name: Get Dependencies
         run: flutter pub get
+
+      - name: Accept Android Licenses
+        run: yes | flutter doctor --android-licenses
+
+      - name: Flutter Doctor
+        run: flutter doctor -v
 
       - name: Build APK
         run: flutter build apk --release
