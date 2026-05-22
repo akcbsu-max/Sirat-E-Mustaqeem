@@ -1,18 +1,14 @@
-name: Flutter Android Build
+name: build
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - master
-      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup Java
@@ -24,7 +20,10 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: 3.22.2
+          channel: stable
+
+      - name: Flutter Version
+        run: flutter --version
 
       - name: Get Dependencies
         run: flutter pub get
@@ -38,11 +37,11 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: release-apk
+          name: app-release-apk
           path: build/app/outputs/flutter-apk/app-release.apk
 
       - name: Upload AAB
         uses: actions/upload-artifact@v4
         with:
-          name: release-aab
+          name: app-release-aab
           path: build/app/outputs/bundle/release/app-release.aab
